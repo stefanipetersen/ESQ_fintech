@@ -4,6 +4,8 @@ import br.com.fiap.esq.model.Gasto;
 import br.com.fiap.esq.model.Objetivo;
 import br.com.fiap.esq.model.Simulador;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -12,8 +14,8 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
         int op;
-        Gasto gasto = new Gasto();
-        Objetivo objetivo = new Objetivo();
+        List<Gasto> gastos = new ArrayList<>();
+        List<Objetivo> objetivos = new ArrayList<>();
 
         do {
             System.out.println("Bem-vindo(a) ao ESQ! \nSua plataforma preferida de organização e planejamento financeiro.");
@@ -29,15 +31,18 @@ public class Main {
                     int tipoDoEstabelecimento = sc.nextInt();
                     System.out.print("Qual o valor gasto? \nR$" );
                     double valorGasto = sc.nextDouble();
-                    gasto.setEstabelecimento(estabelecimento);
-                    gasto.setTipoDoEstabelecimento(tipoDoEstabelecimento);
-                    gasto.setValorGasto(valorGasto);
 
+                    gastos.add(new Gasto(estabelecimento, tipoDoEstabelecimento, valorGasto));
                     System.out.println("Gasto registrado com sucesso!");
                     break;
 
                 case 2:
-                    System.out.println("Estabelecimento: " + gasto.getEstabelecimento() + ", Tipo do estabelecimento: " + gasto.getTipoDoEstabelecimento()+ ", Valor gasto: R$" + gasto.getValorGasto());
+                    int quantos_gastos = 0;
+                    for (Gasto gasto1 : gastos)
+                    {
+                        System.out.println("Gasto #"+ quantos_gastos + "\n Estabelecimento: " + gasto1.getEstabelecimento() + ", Tipo do estabelecimento: " + gasto1.getTipoDoEstabelecimento()+ ", Valor gasto: R$" + gasto1.getValorGasto());
+                        quantos_gastos++;
+                    }
                     break;
 
                 case 3:
@@ -47,28 +52,68 @@ public class Main {
                     double valorFinalObjetivo = sc.nextDouble();
                     System.out.println("Quanto será seu investimento inicial?");
                     double valorInicialObjetivo = sc.nextDouble();
-                    objetivo.setObjetivo(objetivoNome);
-                    objetivo.setValorFinalObjetivo(valorFinalObjetivo);
-                    objetivo.setValorInicialObjetivo(valorInicialObjetivo);
+                    objetivos.add(new Objetivo(objetivoNome, valorFinalObjetivo, valorInicialObjetivo));
                     System.out.println("Objetivo Cadastrado com sucesso! Você pode agora selecionar o simulador de objetivos para ver qual melhor forma de alcançá-lo!");
                     break;
 
-
                 case 4:
-                    System.out.println("Você deseja simular por: 1-Número de meses ou 2-Valor mensal");
+                    System.out.println("Qual objetivo você gostaria de simular?");
+
+                    int numeroObjetivo = 1;
+
+                    for (Objetivo objetivo : objetivos) {
+                        System.out.println(
+                                numeroObjetivo++ + " - " +
+                                        objetivo.getObjetivo() +
+                                        " | Valor inicial: R$ " + String.format("%.2f", objetivo.getValorInicialObjetivo()) +
+                                        " | Valor final: R$ " + String.format("%.2f", objetivo.getValorFinalObjetivo())
+                        );
+                    }
+
+                    int escolhaObjetivo = sc.nextInt();
+
+                    if (escolhaObjetivo < 1 || escolhaObjetivo > objetivos.size()) {
+                        System.out.println("Objetivo inválido.");
+                        break;
+                    }
+
+                    Objetivo objetivoSelecionado = objetivos.get(escolhaObjetivo - 1);
+
+                    System.out.println(
+                            "Você quer simular com base em: " +
+                                    "1-Número de meses ou 2-Valor mensal?"
+                    );
+
                     int opcaoSimulador = sc.nextInt();
+
                     int mesesObjetivo = 0;
                     double valorMensal = 0;
-                    if (opcaoSimulador == 1){
+
+                    if (opcaoSimulador == 1) {
+
                         System.out.println("Em quantos meses você deseja atingir seu objetivo?");
                         mesesObjetivo = sc.nextInt();
-                    } else {
-                        System.out.println("Qual valor mensal você deseja guardar por mês?");
-                        valorMensal = sc.nextDouble();
-                    }
-                    System.out.println(Simulador.simularObjetivos(opcaoSimulador, mesesObjetivo, valorMensal, objetivo));
-                    break;
 
+                    } else if (opcaoSimulador == 2) {
+
+                        System.out.println("Qual valor você deseja guardar por mês?");
+                        valorMensal = sc.nextDouble();
+
+                    } else {
+                        System.out.println("Opção inválida.");
+                        break;
+                    }
+
+                    System.out.println(
+                            Simulador.simularObjetivos(
+                                    opcaoSimulador,
+                                    mesesObjetivo,
+                                    valorMensal,
+                                    objetivoSelecionado
+                            )
+                    );
+
+                    break;
 
                 case 0:
                     System.out.println("Finalizando o sistema");

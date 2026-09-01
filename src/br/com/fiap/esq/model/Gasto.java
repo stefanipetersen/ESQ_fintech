@@ -3,16 +3,23 @@ package br.com.fiap.esq.model;
 public class Gasto {
 
     private String estabelecimento;
-    private int tipoDoEstabelecimento;
+    private String tipoDoEstabelecimento;
     private double valorGasto;
 
     public Gasto(String estabelecimento, int tipoDoEstabelecimento, double valorGasto) {
         this.estabelecimento = estabelecimento;
-        this.tipoDoEstabelecimento = tipoDoEstabelecimento;
+        this.tipoDoEstabelecimento = tipoParaString(tipoDoEstabelecimento);
         this.valorGasto = valorGasto;
     }
 
-    public Gasto() {
+    public static String tipoParaString(int tipo) {
+        switch (tipo) {
+            case 1: return "Comida";
+            case 2: return "Moradia";
+            case 3: return "Lazer";
+            case 4: return "Saúde";
+            default: return "Outros";
+        }
     }
 
     public String getEstabelecimento() {
@@ -25,10 +32,6 @@ public class Gasto {
 
     public int getTipoDoEstabelecimento() {
         return tipoDoEstabelecimento;
-    }
-
-    public void setTipoDoEstabelecimento(int tipoDoEstabelecimento) {
-        this.tipoDoEstabelecimento = tipoDoEstabelecimento;
     }
 
     public double getValorGasto() {
