@@ -2,6 +2,7 @@ package br.com.fiap.esq.view;
 
 import br.com.fiap.esq.model.Gasto;
 import br.com.fiap.esq.model.Objetivo;
+import br.com.fiap.esq.model.Simulador;
 
 import java.util.Scanner;
 
@@ -54,7 +55,18 @@ public class Main {
 
 
                 case 4:
-                    System.out.println("");
+                    System.out.println("Você deseja simular por: 1-Número de meses ou 2-Valor mensal");
+                    int opcaoSimulador = sc.nextInt();
+                    int mesesObjetivo = 0;
+                    double valorMensal = 0;
+                    if (opcaoSimulador == 1){
+                        System.out.println("Em quantos meses você deseja atingir seu objetivo?");
+                        mesesObjetivo = sc.nextInt();
+                    } else {
+                        System.out.println("Qual valor mensal você deseja guardar por mês?");
+                        valorMensal = sc.nextDouble();
+                    }
+                    System.out.println(Simulador.simularObjetivos(opcaoSimulador, mesesObjetivo, valorMensal, objetivo));
                     break;
 
 

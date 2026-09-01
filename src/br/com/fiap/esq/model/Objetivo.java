@@ -15,11 +15,6 @@ public class Objetivo {
     public Objetivo() {
     }
 
-
-
-
-
-
     public String getObjetivo() {
         return objetivo;
     }
