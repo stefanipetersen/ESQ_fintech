@@ -37,10 +37,10 @@ public class Main {
                     break;
 
                 case 2:
-                    int quantos_gastos = 0;
+                    int quantos_gastos = 1;
                     for (Gasto gasto1 : gastos)
                     {
-                        System.out.println("Gasto #"+ quantos_gastos + "\n Estabelecimento: " + gasto1.getEstabelecimento() + ", Tipo do estabelecimento: " + gasto1.getTipoDoEstabelecimento()+ ", Valor gasto: R$" + gasto1.getValorGasto());
+                        System.out.println("Gasto #"+ quantos_gastos + "\n Estabelecimento: " + gasto1.getEstabelecimento() + "| Categoria: " + gasto1.getTipoDoEstabelecimento()+ "| Valor: R$" + gasto1.getValorGasto());
                         quantos_gastos++;
                     }
                     break;
@@ -48,9 +48,9 @@ public class Main {
                 case 3:
                     System.out.println("Qual o seu próximo objetivo?");
                     String objetivoNome = sc.next() + sc.nextLine();
-                    System.out.println("Qual o valor total para atingir seu objetivo?");
+                    System.out.print("Qual o valor total para atingir seu objetivo? \nR$");
                     double valorFinalObjetivo = sc.nextDouble();
-                    System.out.println("Quanto será seu investimento inicial?");
+                    System.out.print("Quanto será seu investimento inicial? \nR$");
                     double valorInicialObjetivo = sc.nextDouble();
                     objetivos.add(new Objetivo(objetivoNome, valorFinalObjetivo, valorInicialObjetivo));
                     System.out.println("Objetivo Cadastrado com sucesso! Você pode agora selecionar o simulador de objetivos para ver qual melhor forma de alcançá-lo!");
@@ -96,11 +96,11 @@ public class Main {
 
                     } else if (opcaoSimulador == 2) {
 
-                        System.out.println("Qual valor você deseja guardar por mês?");
+                        System.out.print("Qual valor você deseja guardar por mês? \nR$");
                         valorMensal = sc.nextDouble();
 
                     } else {
-                        System.out.println("Opção inválida.");
+                        System.out.println("Opção Inválida!");
                         break;
                     }
 

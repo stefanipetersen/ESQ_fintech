@@ -30,7 +30,7 @@ public class Gasto {
         this.estabelecimento = estabelecimento;
     }
 
-    public int getTipoDoEstabelecimento() {
+    public String getTipoDoEstabelecimento() {
         return tipoDoEstabelecimento;
     }
 
