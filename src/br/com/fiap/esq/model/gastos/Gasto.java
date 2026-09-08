@@ -1,4 +1,4 @@
-package br.com.fiap.esq.model;
+package br.com.fiap.esq.model.gastos;
 
 public class Gasto {
 
